@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafletJS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        var map = L.map('map').setView([-0.9313620, 100.3635406
+        ], 12);
+
+        // Tile Layer Base Map
+        var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        });
+
+        var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        var rupabumiindonesia = L.tileLayer('https://geoservices.big.go.id/rbi/rest/services/BASEMAP/Rupabumi_Indonesia/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Badan Informasi Geospasial'
+        });
+
+        var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+        // Menambahkan basemap ke dalam peta
+        Esri_WorldImagery.addTo(map);
+
+        // Marker
+        var marker = L.marker([-0.9313620, 100.3635406]);
+        var marker2 = L.marker([-0.305, 100.369]);
+
+        // Menambahkan marker ke dalam peta
+        marker.addTo(map);
+        marker2.addTo(map);
+
+        // Popup
+        marker.bindPopup("<b>Padang</b> adalah kota terbesar di pantai barat Pulau Sumatra sekaligus ibu kota Provinsi Sumatera Barat, Indonesia. Kota ini adalah pintu gerbang barat Indonesia dari Samudra Hindia.[7] Secara geografi, Padang dikelilingi perbukitan yang mencapai ketinggian 1.853 mdpl dengan luas wilayah 694,96 km²,[8] lebih dari separuhnya berupa hutan lindung.");
+        //marker.openPopup();
+
+        marker2.bindPopup("<b>Bukittinggi</b> merupakan salah satu kota di Provinsi Sumatera Barat, Indonesia. Kota ini berada di kawasan dataran tinggi dengan kondisi topografi yang relatif berbukit dan memiliki udara yang sejuk. Bukittinggi dikenal sebagai salah satu daerah tujuan wisata utama di Sumatera Barat");
+
+        // Tooltip
+        marker.bindTooltip("Padang");
+        marker2.bindTooltip("Bukittinggi");
+        //marker.openTooltip();
+
+        // Circle
+        var circle = L.circle([-0.9146, 100.4582], {
+            color: "pink", // warna garis
+            opacity: 1, // opacity garis
+            fillColor: "#B5185f", // warna fill
+            fillOpacity: 0.5, // opacity fill
+            radius: 1500, // radius dalam meter
+        });
+
+
+        // Menambahkan circle ke dalam peta
+        circle.addTo(map);
+
+        // Popup
+        circle.bindPopup("<b>Universitas Andalas </b><br>UNAND merupakan salah satu perguruan tinggi negeri yang berada di Kota Padang, Provinsi Sumatera Barat. Universitas ini dikenal sebagai salah satu perguruan tinggi tertua di Indonesia dan menjadi salah satu pusat pendidikan serta penelitian di wilayah Sumatera.");
+        //circle.openPopup();
+
+        // Tooltip
+        circle.bindTooltip("Universitas Andalas", { sticky: true });
+        //circle.openTooltip();
+
+        // Polyline Sumatera Barat
+        var vertexPolyline = [
+            [-0.9498282, 100.3621674],
+            [-0.9103296, 100.3618240],
+            [-0.9130774, 100.4040527],
+        ];
+
+        var polyline = L.polyline(vertexPolyline, {
+            color: "pink", // warna garis
+            weight: 3, // ketebalan garis
+            opacity: 1, // opacity garis
+        });
+
+        // Popup
+        polyline.bindPopup("<b>Hallo</b><br>Ini adalah popup polyline");
+        polyline.openPopup();
+
+        // Tooltip
+        polyline.bindTooltip("Ini adalah tooltip polyline");
+        polyline.openTooltip();
+
+        // Menambahkan polyline ke dalam peta
+        polyline.addTo(map);
+
+        // Polygon Kota Padang
+        var vertexPolygon = [
+            [-0.9400, 100.4000],
+            [-0.9200, 100.4400],
+            [-0.9500, 100.4600],
+            [-0.9800, 100.4400],
+            [-0.9700, 100.4000]
+        ];
+
+        var polygon = L.polygon(vertexPolygon, {
+            color: "pink",
+            weight: 3,
+            opacity: 1,
+            fillColor: "#B5185f",
+            fillOpacity: 0.5,
+        });
+
+        // Popup
+        polygon.bindPopup("<b>Hallo</b><br>Ini adalah wilayah Padang");
+        polygon.openPopup();
+
+        // Tooltip
+        polygon.bindTooltip("Wilayah Padang");
+        polygon.openTooltip();
+
+        // Menambahkan polygon ke dalam peta
+        polygon.addTo(map);
+
+        // Control Layer
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "Esri World Imagery": Esri_WorldImagery,
+            "Rupa Bumi Indonesia": rupabumiindonesia,
+            "Open StreetMap France": OpenStreetMap_France,
+
+        };
+
+        var overlayMaps = {
+            "Padang": marker,
+            "Bukittinggi": marker2,
+            "UNAND": circle,
+            "PadangGaris": polyline,
+            "WilayahPadang": polygon,
+
+        };
+
+        var controllayer = L.control.layers(baseMaps, overlayMaps);
+        controllayer.addTo(map);
+
+        // Scale
+        var scale = L.control.scale();
+        scale.addTo(map);
+
+    </script>
+</body>
+
+</html>
